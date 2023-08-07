@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+export default function App() {
+  return <Content />;
+}
+
+function Content() {
+  const showContainer = {
+    margin: 0,
+    display: "flex",
+    alignItem: "center",
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <h3>
+      <ReadMore>
+        This is paragraph to show read more and read less option! Here are some
+        more words to hide and show to make the frontend look good! Because all
+        the text displayed takes more area!
+      </ReadMore>
+    </h3>
   );
 }
 
-export default App;
+function ReadMore({ children }) {
+  const [isReadMore, setIsReadMore] = useState(true);
+
+  const reads = children;
+
+  const showMoreStyle = {
+    color: "blue",
+    cursor: " pointer",
+  };
+
+  const onToggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
+
+  return (
+    <div>
+      {isReadMore ? reads.slice(0, 90) : reads}
+      <span style={showMoreStyle} onClick={onToggleReadMore}>
+        {isReadMore ? "...show more!" : "...show less!"}
+      </span>
+    </div>
+  );
+}
